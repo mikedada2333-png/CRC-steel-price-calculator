@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>冷轧核价对比 · 鞍钢/包钢/建龙/新天钢</title>
+<style>
+:root{--bg:#f1f5f9;--card:#fff;--text:#1e293b;--t2:#64748b;--bd:#e2e8f0;--ag:#2563eb;--bgc:#dc2626;--jl:#0d9488;--xtg:#7c3aed;--r:12px;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:0 20px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topbar .logo{font-weight:800;font-size:16px}
+.topbar .logo span{color:var(--t2);font-weight:400;font-size:12px;margin-left:8px}
+.main{padding:16px 20px;max-width:1400px;margin:0 auto}
+.section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--t2);margin:16px 0 8px}
+.section-title:first-child{margin-top:0}
+.ft-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.ft{padding:8px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:2px solid var(--bd);background:#fff;transition:.2s;display:flex;align-items:center;gap:6px;user-select:none}
+.ft .dot{width:10px;height:10px;border-radius:50%}
+.ft-ag .dot{background:var(--ag)}.ft-bg .dot{background:var(--bgc)}.ft-jl .dot{background:var(--jl)}.ft-xtg .dot{background:var(--xtg)}
+.ft.active{color:#fff}.ft-ag.active{background:var(--ag);border-color:var(--ag)}.ft-ag.active .dot{background:#fff}
+.ft-bg.active{background:var(--bgc);border-color:var(--bgc)}.ft-bg.active .dot{background:#fff}
+.ft-jl.active{background:var(--jl);border-color:var(--jl)}.ft-jl.active .dot{background:#fff}
+.ft-xtg.active{background:var(--xtg);border-color:var(--xtg)}.ft-xtg.active .dot{background:#fff}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px}
+.sc{background:var(--card);border-radius:var(--r);padding:14px 16px;box-shadow:0 1px 2px rgba(0,0,0,.04);border:1px solid var(--bd)}
+.sc .sch{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.sc .sch h4{font-size:13px;font-weight:700}
+.sc-ag{border-top:3px solid var(--ag)}.sc-bg{border-top:3px solid var(--bgc)}
+.sc-jl{border-top:3px solid var(--jl)}.sc-xtg{border-top:3px solid var(--xtg)}
+.sc.off{opacity:.45;pointer-events:none}.sc.off .sc-body{display:none}
+.sf{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.sf label{display:block;font-size:10px;font-weight:600;color:var(--t2);margin-bottom:2px}
+.sf input,.sf select{width:100%;padding:6px 8px;font-size:11px;border:1.5px solid var(--bd);border-radius:6px;outline:none;background:#fafbfc}
+.sf input:focus,.sf select:focus{border-color:var(--ag);box-shadow:0 0 0 3px rgba(37,99,235,.06)}
+.toolbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.btn{padding:7px 13px;font-size:11px;font-weight:600;border-radius:7px;cursor:pointer;border:none;transition:.2s;white-space:nowrap}
+.btn-o{background:#f1f5f9;color:var(--text)}.btn-o:hover{background:#e2e8f0}
+.btn-p{background:var(--ag);color:#fff}.btn-p:hover{filter:brightness(.9)}
+.btn-d{background:#fef2f2;color:var(--bgc)}.btn-d:hover{background:#fecaca}
+.btn-w{background:#fefce8;color:#a16207}.btn-w:hover{background:#fef08a}
+.btn-g{background:#f0fdf4;color:#166534}.btn-g:hover{background:#bbf7d0}
+.to{overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.06);border:1px solid var(--bd);background:#fff;border-radius:var(--r)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:11px;min-width:1100px}
+thead{background:#f8fafc}
+thead th{padding:10px 8px;font-size:10px;text-transform:uppercase;letter-spacing:.3px;color:var(--t2);border-bottom:2px solid var(--bd);white-space:nowrap;text-align:left}
+tbody td{padding:7px 8px;border-bottom:1px solid #f1f5f9}
+tbody tr:hover{background:#f8fafc}
+tbody td input,select{width:100%;padding:5px 7px;font-size:10px;border:1.5px solid var(--bd);border-radius:5px;outline:none}
+tbody td input:focus{border-color:var(--ag)}
+tbody td input[type=number]{text-align:right;width:72px}
+.p-ag{color:var(--ag)}.p-bg{color:var(--bgc)}.p-jl{color:var(--jl)}.p-xtg{color:var(--xtg)}
+.pc{text-align:right;font-weight:600}.ac{text-align:right;font-weight:700}
+.na{font-size:9px;color:#94a3b8}
+.bb{display:inline-block;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700}
+.bb-ag{background:#eff6ff;color:var(--ag)}.bb-bg{background:#fef2f2;color:var(--bgc)}
+.bb-jl{background:#f0fdfa;color:var(--jl)}.bb-xtg{background:#f5f3ff;color:var(--xtg)}
+.sr{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.sumc{flex:1;min-width:180px;background:#fff;border-radius:var(--r);padding:16px;box-shadow:0 4px 16px rgba(0,0,0,.06);border:1px solid var(--bd)}
+.sumc .st{font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;margin-bottom:10px}
+.si{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;font-size:12px}
+.si:last-child{border:none}
+.si .sv{font-weight:700}
+.si-ag{color:var(--ag)}.si-bg{color:var(--bgc)}.si-jl{color:var(--jl)}.si-xtg{color:var(--xtg)}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;justify-content:center;align-items:center}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:var(--r);padding:20px;width:95%;max-width:700px;max-height:82vh;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.15)}
+.modal h3{font-size:15px;margin-bottom:6px}
+.modal textarea{width:100%;flex:1;min-height:140px;padding:10px;font-size:11px;font-family:monospace;border:2px solid var(--bd);border-radius:8px;outline:none;resize:vertical}
+.modal .btn-row{display:flex;gap:6px;margin-top:10px;justify-content:flex-end}
+.toast{position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-120px);background:#1e293b;color:#fff;padding:8px 18px;border-radius:16px;font-size:12px;opacity:0;transition:.3s;z-index:300;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.emp{text-align:center;padding:40px;color:var(--t2)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">🏭 冷轧核价对比<span>鞍钢 · 包钢 · 建龙 · 新天钢 | USD/MT</span></div>
+  <span style="font-size:11px;color:var(--t2);" id="rowBadge">0 条规格</span>
+</div>
+
+<div class="main">
+
+  <div class="section-title">🔘 选择对比工厂</div>
+  <div class="ft-row">
+    <div class="ft ft-ag active" onclick="toggleFactory('ag')"><span class="dot"></span>鞍钢</div>
+    <div class="ft ft-bg active" onclick="toggleFactory('bg')"><span class="dot"></span>包钢</div>
+    <div class="ft ft-jl active" onclick="toggleFactory('jl')"><span class="dot"></span>建龙</div>
+    <div class="ft ft-xtg active" onclick="toggleFactory('xtg')"><span class="dot"></span>新天钢</div>
+  </div>
+
+  <div class="section-title">⚙️ 工厂基准与加价</div>
+  <div class="sg" id="settingsGrid">
+    
+    <div class="sc sc-ag" id="sc-ag">
+      <div class="sch"><span>🔵</span><h4>鞍钢 AnGang</h4></div>
+      <div class="sc-body"><div class="sf">
+        <div><label>基准单价 USD/MT</label><input type="number" id="agBase" value="800" step="1" oninput="refreshAll()" onchange="refreshAll()"></div>
+        <div><label>产品类型</label><select id="agProductType" onchange="refreshAll()"><option value="annealed">ITEM1 退火</option><option value="fullhard">ITEM2 全硬</option></select></div>
+        <div><label>厚度公差</label><select id="agThkTol" onchange="refreshAll()"><option value="0">标准</option><option value="17">PTB +17</option><option value="34">PTC +34</option></select></div>
+        <div><label>不平度</label><select id="agFlatness" onchange="refreshAll()"><option value="0">标准</option><option value="9">PF.B +9</option><option value="17">PF.C +17</option></select></div>
+        <div><label>表面</label><select id="agSurface" onchange="refreshAll()"><option value="0">标准</option><option value="17">FC/O4 +17</option><option value="26">FD/O5 +26</option></select></div>
+        <div><label>粗糙度</label><select id="agRoughness" onchange="refreshAll()"><option value="0">标准</option><option value="9">Ra≤0.9 +9</option><option value="25">Ra≤0.4 +25</option></select></div>
+        <div><label>包装</label><select id="agPacking" onchange="refreshAll()"><option value="0">标准</option><option value="6">盒装>3t +6</option><option value="13">盒装≤3t +13</option></select></div>
+        <div><label>油品</label><select id="agOil" onchange="refreshAll()"><option value="0">标准</option><option value="5">DOS +5</option></select></div>
+        <div><label>卷重</label><select id="agCoil" onchange="refreshAll()"><option value="0">标准</option><option value="-4">CW≥15mt -4</option></select></div>
+        <div><label>硼合金</label><select id="agBoron" onchange="refreshAll()"><option value="0">不含</option><option value="1">含硼 +1</option></select></div>
+      </div></div>
+    </div>
+
+    <div class="sc sc-bg" id="sc-bg">
+      <div class="sch"><span>🔴</span><h4>包钢 BaoGang</h4></div>
+      <div class="sc-body"><div class="sf">
+        <div><label>基准单价 USD/MT</label><input type="number" id="bgBase" value="800" step="1" oninput="refreshAll()" onchange="refreshAll()"></div>
+        <div><label>体系</label><select id="bgSystem" onchange="refreshAll()"><option value="new">新体系 连退</option><option value="old">老体系 罩退</option></select></div>
+        <div><label>表面</label><select id="bgSurface" onchange="refreshAll()"><option value="0">FB</option><option value="8">FC +8</option><option value="29">FD +29</option></select></div>
+        <div><label>宽度精度</label><select id="bgWidthPrec" onchange="refreshAll()"><option value="0">PW.A</option><option value="5">PW.B +5</option></select></div>
+        <div><label>包装</label><select id="bgPacking" onchange="refreshAll()"><option value="0">普包/简包</option><option value="7">精包装 +7</option><option value="2">外圈纤维板 +2</option><option value="2">端部纤维板 +2</option><option value="2">内芯纤维板 +2</option><option value="3">内+外圈 +3</option><option value="5">内芯+外圈+端部 +5</option><option value="1">内芯瓦楞纸板 +1</option><option value="-1">HB纯纤维板 -1</option></select></div>
+        <div><label>硼合金</label><select id="bgBoron" onchange="refreshAll()"><option value="0">不含</option><option value="15">含硼 +15</option></select></div>
+      </div></div>
+    </div>
+
+    <div class="sc sc-jl" id="sc-jl">
+      <div class="sch"><span>🟢</span><h4>建龙 JianLong</h4></div>
+      <div class="sc-body"><div class="sf">
+        <div><label>基准单价 USD/MT</label><input type="number" id="jlBase" value="800" step="1" oninput="refreshAll()" onchange="refreshAll()"></div>
+        <div><label>硼合金</label><select id="jlBoron" onchange="refreshAll()"><option value="0">不含</option><option value="3">加硼 +3</option></select></div>
+        <div><label>包装</label><select id="jlPacking" onchange="refreshAll()"><option value="0">标准</option><option value="3">全铁皮 +3</option></select></div>
+        <div><label>套筒</label><select id="jlSleeve" onchange="refreshAll()"><option value="0">厚度&lt;0.4 纸套筒</option><option value="3">厚度≥0.4 套筒 +3</option></select></div>
+      </div></div>
+    </div>
+
+    <div class="sc sc-xtg" id="sc-xtg">
+      <div class="sch"><span>🟣</span><h4>新天钢 XinTianGang</h4></div>
+      <div class="sc-body"><div class="sf">
+        <div><label>基准单价 USD/MT</label><input type="number" id="xtgBase" value="800" step="1" oninput="refreshAll()" onchange="refreshAll()"></div>
+        <div><label>硼合金</label><select id="xtgBoron" onchange="refreshAll()"><option value="0">不含</option><option value="6">含硼 +6</option></select></div>
+        <div><label>宽度类型</label><select id="xtgWidthType" onchange="refreshAll()"><option value="auto">自动匹配</option><option value="nonstd">非标 +6</option></select></div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="section-title">📋 规格清单</div>
+  <div class="toolbar">
+    <button class="btn btn-w" onclick="openPaste()">📋 批量粘贴</button>
+    <button class="btn btn-p" onclick="addRow()">+ 添加行</button>
+    <button class="btn btn-o" onclick="addRows(10)">+10</button>
+    <button class="btn btn-o" onclick="dupSel()">复制选中</button>
+    <button class="btn btn-d" onclick="remSel()">删除选中</button>
+    <button class="btn btn-o" onclick="clearAll()">清空</button>
+    <span style="flex:1;"></span>
+    <button class="btn btn-g" onclick="exportCSV()">📥 导出CSV</button>
+  </div>
+  <div class="to">
+    <div class="tw">
+      <table><thead><tr>
+        <th style="width:22px;"><input type="checkbox" id="selectAll" onchange="toggleSA()"></th>
+        <th style="width:26px;">#</th><th>厚度mm</th><th>宽度mm</th><th>钢种</th><th>吨数MT</th>
+        <th style="text-align:right;">鞍钢$/MT</th><th style="text-align:right;">包钢$/MT</th>
+        <th style="text-align:right;">建龙$/MT</th><th style="text-align:right;">新天钢$/MT</th>
+        <th style="text-align:right;">鞍钢金额</th><th style="text-align:right;">包钢金额</th>
+        <th style="text-align:right;">建龙金额</th><th style="text-align:right;">新天钢金额</th>
+        <th style="text-align:center;">🏆最低</th><th style="width:28px;"></th>
+      </tr></thead>
+      <tbody id="specBody"></tbody></table>
+    </div>
+    <div class="emp" id="emptyState">📭 暂无规格</div>
+  </div>
+
+  <div class="section-title">📊 汇总对比</div>
+  <div class="sr" id="summaryRow"></div>
+
+</div>
+
+<div class="modal-overlay" id="pasteModal">
+  <div class="modal">
+    <h3>📋 批量粘贴规格</h3>
+    <div style="font-size:10px;color:var(--t2);margin-bottom:10px;">格式：厚度 宽度 钢种 [吨数]，空格/Tab/逗号分隔。吨数可选默认1MT。</div>
+    <textarea id="pasteArea" placeholder="0.8 1200 DC01 10&#10;1.0 1250 SPCD 20"></textarea>
+    <div id="parsePreview" style="display:none;margin-top:8px;max-height:160px;overflow-y:auto;font-size:10px;"></div>
+    <div class="btn-row">
+      <button class="btn btn-o" onclick="closePaste()">取消</button>
+      <button class="btn btn-p" onclick="parseAndPreview()">🔍 解析预览</button>
+      <button class="btn btn-w" id="btnImport" disabled onclick="importParsed()">✅ 确认导入</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ==========================================
+//  DATA - 加价表
+// ==========================================
+
+// 鞍钢厚度 [minThk, annealed加价, fullhard加价]
+var AG_THK = [
+  [0.4, 54, 34], [0.5, 41, 17], [0.6, 31, 9], [0.7, 24, 4],
+  [0.8, 21, 4], [0.9, 14, 4], [1.0, 0, 0], [1.1, -5, 0],
+  [1.25, -8, 0], [1.6, -8, 0], [2.0, -8, 0], [2.1, 15, 0], [2.6, 40, 0]
+];
+
+// 鞍钢钢种 {n:名称, a:annealed加价, f:fullhard加价 (null=N/A)}
+var AG_GRD = [
+  {n:'CS A/CS B/DC01/SPCC/SPCCT SAE1006/SAE1008/SAE1010/A424 TYPE2', a:0, f:0},
+  {n:'CS A（ATA B0L 42U）', a:1, f:null}, {n:'JSC270C B', a:1, f:null},
+  {n:'CS A-M/CS B-M', a:3, f:null}, {n:'AYHS5', a:12, f:null},
+  {n:'DS B/DC03/SPCD', a:15, f:null}, {n:'Q235/SAE1015/SPFC340', a:17, f:null},
+  {n:'25Mn', a:null, f:21}, {n:'JD1/JD2', a:22, f:null}, {n:'TC2', a:23, f:null},
+  {n:'DDS/DC04/SPCE/SAE1018/SS30/SS33-1/SS33-2', a:25, f:null},
+  {n:'DC01EK', a:30, f:null}, {n:'SAE1020/SAE1021', a:34, f:null},
+  {n:'SAE1030/CSP1-S', a:44, f:null}, {n:'SAE1035', a:45, f:45},
+  {n:'HC260LA/SPCC-VCM', a:45, f:null}, {n:'HC300LA/SS40-1', a:47, f:null},
+  {n:'EDDS/DC05/SPCF/SS40-2', a:55, f:null}, {n:'040 XLF/HC280LA', a:60, f:null},
+  {n:'HC340LA/HSLA Gr50', a:61, f:null}, {n:'SS50', a:68, f:null},
+  {n:'DC04EK', a:70, f:null}, {n:'SL250Y (Slideway)', a:78, f:null},
+  {n:'CR260/450DP', a:80, f:null}, {n:'HC380LA/HSLA55-1 HSLA55-2', a:81, f:null},
+  {n:'HC420LA', a:101, f:null}, {n:'CR340/590DP', a:108, f:null},
+  {n:'DC06/SPCG', a:110, f:null}, {n:'DC07', a:120, f:null},
+  {n:'CR420/780DP', a:149, f:null}, {n:'S50C/SAE1050', a:150, f:null},
+  {n:'硅钢用冷硬 DY013-00K', a:null, f:-10}, {n:'硅钢用冷硬 DY016-00K', a:null, f:20}
+];
+
+// 包钢厚度 [minThk, 加价]
+var BG_THK = [
+  [0.4,39], [0.45,35], [0.5,22], [0.6,15], [0.7,9], [0.8,6], [0.9,5],
+  [1.0,0], [1.2,-2], [1.5,-5], [2.0,-5], [2.1,0], [2.3,8], [2.4,13], [2.6,22], [2.9,22]
+];
+// 包钢钢种 {n:名称, e:加价}
+var BG_GRD = [
+  {n:'SPCC/SPCC-SDK', e:0}, {n:'Q235B', e:0}, {n:'ST12', e:3},
+  {n:'DC01', e:13}, {n:'SPCC-B', e:15}, {n:'SAE1008', e:20},
+  {n:'DC03/SPCD/ST13', e:72}, {n:'SPCE/DC04/ST14', e:93}
+];
+
+// 建龙厚度 [minThk, 加价]
+var JL_THK = [
+  [0.3,49], [0.35,38], [0.4,31], [0.45,26], [0.5,22],
+  [0.6,15], [0.7,7], [0.8,4], [0.9,3], [1.0,0], [1.2,0]
+];
+
+// 新天钢厚度 [minThk, 加价]
+var XTG_THK = [
+  [0.2,92], [0.23,83], [0.25,77], [0.27,71], [0.28,68], [0.3,47],
+  [0.32,43], [0.35,39], [0.37,33], [0.4,27], [0.42,24], [0.45,22],
+  [0.47,19], [0.5,18], [0.55,15], [0.6,12], [0.7,9], [0.75,6],
+  [0.85,3], [0.95,1], [1.0,0], [1.2,-1], [1.5,-3], [2.1,4], [2.5,12], [2.7,12]
+];
+
+// ==========================================
+//  STATE
+// ==========================================
+var specRows = [];
+var parsedRows = [];
+var activeFactories = { ag: true, bg: true, jl: true, xtg: true };
+
+// ==========================================
+//  DOM HELPERS
+// ==========================================
+function $(id) { return document.getElementById(id); }
+function qs(sel) { return document.querySelector(sel); }
+function qsa(sel) { return document.querySelectorAll(sel); }
+function rv(id) { var e = $(id); return e ? parseFloat(e.value) || 0 : 0; }
+function ri(id) { var e = $(id); return e ? parseInt(e.value) || 0 : 0; }
+function rs(id) { var e = $(id); return e ? e.value : ''; }
+function fm(v) { return v != null ? '$' + v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '<span class="na">N/A</span>'; }
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ==========================================
+//  CALCULATION ENGINE
+// ==========================================
+
+// ---- 鞍钢 ----
+function agCalc(thk, wid, gname) {
+  var base = rv('agBase'), pt = rs('agProductType');
+  var isAn = pt === 'annealed';
+
+  // 厚度加价
+  var t = 0;
+  for (var i = AG_THK.length - 1; i >= 0; i--) {
+    if (thk >= AG_THK[i][0]) { t = isAn ? AG_THK[i][1] : AG_THK[i][2]; break; }
+  }
+  if (thk < 0.4) { t = isAn ? AG_THK[0][1] : AG_THK[0][2]; }
+
+  // 宽度加价 (精确边界)
+  var w = 0;
+  if (wid >= 1800)      { w = isAn ? 42 : null; }
+  else if (wid >= 1700) { w = isAn ? 34 : null; }
+  else if (wid > 1530)  { w = isAn ? 26 : null; }
+  else if (wid >= 1000) { w = isAn ? 0 : 0; }
+  else if (wid >= 900)  { w = isAn ? 8 : 17; }
+  else                  { w = isAn ? 22 : null; }
+  if (w === null) w = 0;
+
+  // 钢种加价
+  var g = null;
+  for (var j = 0; j < AG_GRD.length; j++) { if (AG_GRD[j].n === gname) { g = AG_GRD[j]; break; } }
+  var ge = 0;
+  if (g) { var v = isAn ? g.a : g.f; if (v !== null) ge = v; }
+
+  // 其他加价
+  var other = ri('agThkTol') + ri('agFlatness') + ri('agSurface') + ri('agRoughness') +
+              ri('agPacking') + ri('agOil') + ri('agCoil') + ri('agBoron');
+  return base + t + w + ge + other;
+}
+
+// ---- 包钢 ----
+function bgCalc(thk, wid, gname) {
+  var base = rv('bgBase'), sys = rs('bgSystem');
+  if ((sys === 'new' && thk < 0.45) || (sys === 'old' && thk < 0.4)) return null;
+
+  var t = 39;
+  for (var i = BG_THK.length - 1; i >= 0; i--) { if (thk >= BG_THK[i][0]) { t = BG_THK[i][1]; break; } }
+
+  var w = 0;
+  if (wid >= 1800) w = 15;
+  else if (wid >= 1600) {
+    var ex = gname && (gname.toUpperCase().indexOf('SPCC') !== -1 || gname.toUpperCase().indexOf('Q235B') !== -1);
+    w = ex ? 0 : -7;
+  } else if (wid >= 1200 && wid <= 1599) w = 0;
+  else if (wid >= 1050 && wid <= 1199) w = 8;
+  else if (wid >= 940 && wid <= 1049) w = 43;
+  else w = 43;
+
+  var g = null;
+  for (var k = 0; k < BG_GRD.length; k++) { if (BG_GRD[k].n === gname) { g = BG_GRD[k]; break; } }
+  var ge = g ? g.e : 0;
+
+  var tot = base + t + w + ge + ri('bgSurface') + ri('bgWidthPrec') + ri('bgPacking');
+  if (sys === 'new') tot += ri('bgBoron');
+  return tot;
+}
+
+// ---- 建龙 ----
+function jlCalc(thk, wid) {
+  if (wid < 800 || wid > 1300) return null;
+  var t = 49;
+  for (var i = JL_THK.length - 1; i >= 0; i--) { if (thk >= JL_THK[i][0]) { t = JL_THK[i][1]; break; } }
+  var tot = rv('jlBase') + t + ri('jlBoron') + ri('jlPacking');
+  if (rs('jlSleeve') === '3' && thk >= 0.4) tot += 3;
+  return tot;
+}
+
+// ---- 新天钢 ----
+function xtgCalc(thk, wid) {
+  var t = 92;
+  for (var i = XTG_THK.length - 1; i >= 0; i--) { if (thk >= XTG_THK[i][0]) { t = XTG_THK[i][1]; break; } }
+  var wt = rs('xtgWidthType'), w = 0;
+  if (wt === 'nonstd') w = 6;
+  else if (wid === 1210) w = 6;
+  else if (wid === 1500) w = 3;
+  else if (wid >= 900 && wid < 1000) w = 15;
+  else if (wid >= 1000 && wid < 1010) w = 3;
+  else if (wid >= 1010 && wid < 1500) w = 0;
+  else if (wid > 1500) w = 15;
+  else if (wid < 900) w = 15;
+  return rv('xtgBase') + t + w + ri('xtgBoron');
+}
+
+function calcFor(k, thk, wid, ga, gb) {
+  switch (k) {
+    case 'ag': return agCalc(thk, wid, ga);
+    case 'bg': return bgCalc(thk, wid, gb);
+    case 'jl': return jlCalc(thk, wid);
+    case 'xtg': return xtgCalc(thk, wid);
+    default: return null;
+  }
+}
+
+// ==========================================
+//  🔧 修正版模糊匹配 - 分词精确匹配优先
+// ==========================================
+// 匹配优先级：
+//   1. 全名精确匹配 (score=100)
+//   2. 分词精确匹配：查询词精确等于钢种名中的某个词 (score=100)
+//   3. 包含匹配：查询词是钢种名的子串，得分 = 90 - (名称长度 - 查询长度)
+//   4. 多词部分匹配：查询词中至少40%的词在钢种名中出现
+// 
+// 修复前：SPCC 匹配到 HC260LA/SPCC-VCM(加价45) 而非 CS A/CS B/DC01/SPCC/...(加价0)
+// 修复后：SPCC 分词精确匹配 CS A/CS B/DC01/SPCC/... 中的 "SPCC" 词，得分100
+function fuzzy(list, input, fn) {
+  if (!input || !input.trim()) return null;
+  var q = input.trim().toUpperCase().replace(/\s+/g, ' ');
+  var best = null, bs = 0;
+
+  for (var i = 0; i < list.length; i++) {
+    var it = list[i], gn = fn(it).toUpperCase();
+
+    // 1. 全名精确匹配
+    if (gn === q) { return { it: it, sc: 100 }; }
+
+    // 2. 🔑 分词精确匹配（核心修复）
+    // 把钢种名按 / , 空格 拆成独立词，检查查询词是否精确等于某个词
+    var words = gn.split(/[/,\s]+/);
+    var wordMatch = false;
+    for (var w = 0; w < words.length; w++) {
+      if (words[w] === q && words[w].length >= 2) { wordMatch = true; break; }
+    }
+    if (wordMatch) {
+      // 分词精确匹配，得分100，但如果已经有100分的就不再替换
+      if (bs < 100) { best = it; bs = 100; }
+      continue;
+    }
+
+    // 3. 包含匹配
+    if (gn.indexOf(q) !== -1) {
+      var s = 90 - (gn.length - q.length);
+      if (s > bs) { best = it; bs = s; }
+    }
+  }
+
+  // 如果已经有100分的，直接返回
+  if (bs >= 100) return { it: best, sc: 100 };
+  if (best && bs >= 50) return { it: best, sc: Math.max(bs, 50) };
+
+  // 4. 多词部分匹配
+  var qWords = q.split(/[/,\s]+/).filter(function(w) { return w.length >= 2; });
+  for (var j = 0; j < list.length; j++) {
+    var it2 = list[j], gn2 = fn(it2).toUpperCase(), hits = 0;
+    for (var x = 0; x < qWords.length; x++) { if (gn2.indexOf(qWords[x]) !== -1) hits++; }
+    if (hits >= 1 && hits / qWords.length >= 0.4) {
+      var s2 = 30 + Math.floor(hits / qWords.length * 40);
+      if (s2 > bs) { best = it2; bs = s2; }
+    }
+  }
+  return best ? { it: best, sc: bs } : null;
+}
+
+function matchGrade(t) {
+  var am = fuzzy(AG_GRD, t, function(g) { return g.n; });
+  var bm = fuzzy(BG_GRD, t, function(g) { return g.n; });
+  return {
+    ga: am ? am.it.n : 'CS A/CS B/DC01/SPCC/SPCCT SAE1006/SAE1008/SAE1010/A424 TYPE2',
+    gb: bm ? bm.it.n : 'SPCC/SPCC-SDK'
+  };
+}
+
+// ==========================================
+//  RENDER
+// ==========================================
+function refreshAll() {
+  var body = $('specBody'), empty = $('emptyState');
+
+  if (specRows.length === 0) {
+    body.innerHTML = ''; empty.style.display = '';
+    updateSummary(); $('rowBadge').textContent = '0 条'; updateColVis(); return;
+  }
+
+  empty.style.display = 'none';
+  var fa = activeFactories, html = '';
+
+  for (var i = 0; i < specRows.length; i++) {
+    var r = specRows[i];
+    var thickness = r.thickness || 0, width = r.width || 0, tons = r.tons || 1;
+    var gradeText = r.gradeText || '';
+    var gradeAg = r.gradeAg || 'CS A/CS B/DC01/SPCC/SPCCT SAE1006/SAE1008/SAE1010/A424 TYPE2';
+    var gradeBg = r.gradeBg || 'SPCC/SPCC-SDK';
+
+    var ap = agCalc(thickness, width, gradeAg);
+    var bp = bgCalc(thickness, width, gradeBg);
+    var jp = jlCalc(thickness, width);
+    var xp = xtgCalc(thickness, width);
+
+    var aAmt = ap * tons, bAmt = bp != null ? bp * tons : null;
+    var jAmt = jp != null ? jp * tons : null, xAmt = xp != null ? xp * tons : null;
+
+    var ps = [];
+    if (fa.ag) ps.push({ l: '鞍钢', v: ap, c: 'bb-ag' });
+    if (fa.bg && bp != null) ps.push({ l: '包钢', v: bp, c: 'bb-bg' });
+    if (fa.jl && jp != null) ps.push({ l: '建龙', v: jp, c: 'bb-jl' });
+    if (fa.xtg && xp != null) ps.push({ l: '新天钢', v: xp, c: 'bb-xtg' });
+    var bestHTML = '<span class="na">-</span>';
+    if (ps.length > 0) {
+      var mn = Math.min.apply(null, ps.map(function(p) { return p.v; }));
+      bestHTML = ps.filter(function(p) { return p.v === mn; }).map(function(p) { return '<span class="bb ' + p.c + '">' + p.l + '</span>'; }).join(' ');
+    }
+
+    html += '<tr>' +
+      '<td><input type="checkbox" class="row-check" data-i="' + i + '" onchange="onRC()"></td>' +
+      '<td style="text-align:center;color:var(--t2);font-size:10px;">' + (i + 1) + '</td>' +
+      '<td><input type="number" value="' + thickness + '" step="0.01" min="0" oninput="updateRowAndRefresh(' + i + ',&#39;thickness&#39;,this.value)" style="width:65px;"></td>' +
+      '<td><input type="number" value="' + width + '" step="1" min="0" oninput="updateRowAndRefresh(' + i + ',&#39;width&#39;,this.value)" style="width:70px;"></td>' +
+      '<td><input type="text" value="' + esc(gradeText) + '" oninput="updateGradeAndRefresh(' + i + ',this.value)" placeholder="SPCC" style="min-width:80px;text-align:left;"></td>' +
+      '<td><input type="number" value="' + tons + '" step="0.001" min="0" oninput="updateRowAndRefresh(' + i + ',&#39;tons&#39;,this.value)" style="width:70px;"></td>' +
+      '<td class="pc p-ag">' + (fa.ag ? fm(ap) : '') + '</td>' +
+      '<td class="pc p-bg">' + (fa.bg ? fm(bp) : '') + '</td>' +
+      '<td class="pc p-jl">' + (fa.jl ? fm(jp) : '') + '</td>' +
+      '<td class="pc p-xtg">' + (fa.xtg ? fm(xp) : '') + '</td>' +
+      '<td class="ac p-ag">' + (fa.ag ? fm(aAmt) : '') + '</td>' +
+      '<td class="ac p-bg">' + (fa.bg ? fm(bAmt) : '') + '</td>' +
+      '<td class="ac p-jl">' + (fa.jl ? fm(jAmt) : '') + '</td>' +
+      '<td class="ac p-xtg">' + (fa.xtg ? fm(xAmt) : '') + '</td>' +
+      '<td style="text-align:center;">' + bestHTML + '</td>' +
+      '<td><button class="btn btn-d" style="padding:2px 6px;font-size:9px;" onclick="remR(' + i + ')">✕</button></td>' +
+      '</tr>';
+  }
+
+  body.innerHTML = html;
+  updateSummary();
+  $('rowBadge').textContent = specRows.length + ' 条';
+  updateColVis();
+  saveConfig();
+}
+
+function updateColVis() {
+  var fa = activeFactories;
+  var map = { ag: [7, 11], bg: [8, 12], jl: [9, 13], xtg: [10, 14] };
+  for (var k in map) {
+    var show = fa[k];
+    for (var j = 0; j < map[k].length; j++) {
+      var c = map[k][j];
+      qsa('thead th:nth-child(' + c + '), tbody td:nth-child(' + c + ')').forEach(function(e) { e.style.display = show ? '' : 'none'; });
+    }
+  }
+}
+
+function updateSummary() {
+  var fa = activeFactories, aks = Object.keys(fa).filter(function(k) { return fa[k]; });
+  if (aks.length === 0 || specRows.length === 0) {
+    $('summaryRow').innerHTML = '<div class="sumc" style="text-align:center;padding:30px;color:var(--t2);">' + (aks.length ? '请添加规格数据' : '请至少选择一个工厂') + '</div>';
+    return;
+  }
+
+  var tots = {}; aks.forEach(function(k) { tots[k] = { s: 0, vt: 0 }; });
+  var tt = 0;
+  for (var i = 0; i < specRows.length; i++) {
+    var r = specRows[i]; tt += r.tons || 1;
+    for (var j = 0; j < aks.length; j++) {
+      var k = aks[j], p = calcFor(k, r.thickness || 0, r.width || 0, r.gradeAg || '', r.gradeBg || '');
+      if (p != null) { tots[k].s += p * (r.tons || 1); tots[k].vt += r.tons || 1; }
+    }
+  }
+
+  var em = { ag: '🔵', bg: '🔴', jl: '🟢', xtg: '🟣' };
+  var lb = { ag: '鞍钢', bg: '包钢', jl: '建龙', xtg: '新天钢' };
+  var cls = { ag: 'si-ag', bg: 'si-bg', jl: 'si-jl', xtg: 'si-xtg' };
+
+  var h = '<div class="sumc"><div class="st">📋 基础</div>';
+  h += '<div class="si"><span>规格数</span><span class="sv">' + specRows.length + ' 条</span></div>';
+  h += '<div class="si"><span>总吨数</span><span class="sv">' + tt.toFixed(3) + ' MT</span></div></div>';
+
+  h += '<div class="sumc"><div class="st">💰 总额</div>';
+  for (var m = 0; m < aks.length; m++) { var k2 = aks[m]; h += '<div class="si"><span>' + em[k2] + ' ' + lb[k2] + '</span><span class="sv ' + cls[k2] + '">' + fm(tots[k2].s) + '</span></div>'; }
+  h += '</div><div class="sumc"><div class="st">📈 均价 $/MT</div>';
+  for (var n = 0; n < aks.length; n++) { var k3 = aks[n], av = tots[k3].vt > 0 ? tots[k3].s / tots[k3].vt : 0; h += '<div class="si"><span>' + em[k3] + ' ' + lb[k3] + '</span><span class="sv ' + cls[k3] + '">' + fm(av) + '</span></div>'; }
+  h += '</div>';
+
+  var srt = aks.map(function(k) { return { k: k, s: tots[k].s }; }).filter(function(t) { return t.s > 0; }).sort(function(a, b) { return a.s - b.s; });
+  if (srt.length > 0) {
+    var best = srt[0], worst = srt[srt.length - 1], sv = worst.s - best.s;
+    h += '<div class="sumc" style="background:linear-gradient(135deg,#f0fdf4,#ecfdf5);"><div class="st">🏆 最优</div><div style="text-align:center;padding:10px 0;">';
+    h += '<div style="font-size:28px;">' + em[best.k] + '</div><div style="font-size:16px;font-weight:800;">' + lb[best.k] + '</div>';
+    if (sv > 0 && srt.length > 1) h += '<div style="font-size:11px;color:var(--t2);margin-top:6px;">比' + lb[worst.k] + '节省 ' + fm(sv) + '</div>';
+    h += '</div></div>';
+  }
+
+  $('summaryRow').innerHTML = h;
+}
+
+// ==========================================
+//  ROW OPERATIONS
+// ==========================================
+function updateRowAndRefresh(i, field, value) {
+  if (i < 0 || i >= specRows.length) return;
+  specRows[i][field] = parseFloat(value) || 0;
+  refreshAll();
+}
+function updateGradeAndRefresh(i, text) {
+  if (i < 0 || i >= specRows.length) return;
+  specRows[i].gradeText = text;
+  var m = matchGrade(text);
+  specRows[i].gradeAg = m.ga;
+  specRows[i].gradeBg = m.gb;
+  refreshAll();
+}
+function addRow() {
+  if (specRows.length >= 50) { showToast('最多50条'); return; }
+  var m = matchGrade('SPCC');
+  specRows.push({ thickness: 1, width: 1200, gradeText: 'SPCC', gradeAg: m.ga, gradeBg: m.gb, tons: 1 });
+  refreshAll();
+}
+function addRows(n) {
+  var rem = 50 - specRows.length, add = Math.min(n, rem);
+  if (add <= 0) { showToast('已达上限'); return; }
+  var m = matchGrade('SPCC');
+  for (var i = 0; i < add; i++) specRows.push({ thickness: 1, width: 1200, gradeText: 'SPCC', gradeAg: m.ga, gradeBg: m.gb, tons: 1 });
+  refreshAll();
+}
+function remR(i) { specRows.splice(i, 1); refreshAll(); }
+function remSel() {
+  var cs = qsa('.row-check:checked'); if (cs.length === 0) { showToast('请勾选行'); return; }
+  var indices = [].map.call(cs, function(c) { return parseInt(c.dataset.i); }).sort(function(a, b) { return b - a; });
+  for (var i = 0; i < indices.length; i++) specRows.splice(indices[i], 1);
+  refreshAll(); showToast('已删除');
+}
+function dupSel() {
+  var cs = qsa('.row-check:checked'); if (cs.length === 0) { showToast('请勾选行'); return; }
+  if (specRows.length + cs.length > 50) { showToast('超50条上限'); return; }
+  var copies = [].map.call(cs, function(c) {
+    var r = specRows[parseInt(c.dataset.i)];
+    return { thickness: r.thickness, width: r.width, gradeText: r.gradeText, gradeAg: r.gradeAg, gradeBg: r.gradeBg, tons: r.tons };
+  });
+  specRows = specRows.concat(copies); refreshAll();
+}
+function clearAll() { if (specRows.length && confirm('清空全部？')) { specRows = []; refreshAll(); } }
+function toggleSA() { qsa('.row-check').forEach(function(c) { c.checked = $('selectAll').checked; }); }
+function onRC() {
+  var a = qsa('.row-check');
+  $('selectAll').checked = a.length > 0 && [].every.call(a, function(c) { return c.checked; });
+}
+
+// ==========================================
+//  FACTORY TOGGLE
+// ==========================================
+function toggleFactory(k) {
+  activeFactories[k] = !activeFactories[k];
+  qs('.ft-' + k).classList.toggle('active', activeFactories[k]);
+  var cd = $('sc-' + k);
+  if (activeFactories[k]) { cd.classList.remove('off'); } else { cd.classList.add('off'); }
+  updateColVis(); refreshAll();
+}
+
+// ==========================================
+//  CSV EXPORT
+// ==========================================
+function exportCSV() {
+  if (specRows.length === 0) { showToast('无数据'); return; }
+  var fa = activeFactories;
+  var h = '序号,厚度mm,宽度mm,钢种,吨数MT';
+  if (fa.ag) h += ',鞍钢$/MT,鞍钢金额$'; if (fa.bg) h += ',包钢$/MT,包钢金额$';
+  if (fa.jl) h += ',建龙$/MT,建龙金额$'; if (fa.xtg) h += ',新天钢$/MT,新天钢金额$';
+  h += ',最低价'; var rows = [h];
+  for (var i = 0; i < specRows.length; i++) {
+    var r = specRows[i];
+    var ap = agCalc(r.thickness || 0, r.width || 0, r.gradeAg || '');
+    var bp = bgCalc(r.thickness || 0, r.width || 0, r.gradeBg || '');
+    var jp = jlCalc(r.thickness || 0, r.width || 0);
+    var xp = xtgCalc(r.thickness || 0, r.width || 0);
+    var ps = [{l:'鞍钢',v:ap},{l:'包钢',v:bp},{l:'建龙',v:jp},{l:'新天钢',v:xp}];
+    var ac = ps.filter(function(p) { return fa[p.l==='鞍钢'?'ag':p.l==='包钢'?'bg':p.l==='建龙'?'jl':'xtg'] && p.v != null; });
+    var mn = ac.length > 0 ? Math.min.apply(null, ac.map(function(p) { return p.v; })) : null;
+    var best = ac.length > 0 ? ac.filter(function(p) { return p.v === mn; }).map(function(p) { return p.l; }).join('/') : '-';
+    var ln = [i+1, r.thickness||0, r.width||0, '"'+(r.gradeText||'')+'"', r.tons||1].join(',');
+    if (fa.ag) ln += ',' + ap.toFixed(2) + ',' + (ap*(r.tons||1)).toFixed(2);
+    if (fa.bg) ln += ',' + (bp!=null?bp.toFixed(2):'N/A') + ',' + (bp!=null?(bp*(r.tons||1)).toFixed(2):'N/A');
+    if (fa.jl) ln += ',' + (jp!=null?jp.toFixed(2):'N/A') + ',' + (jp!=null?(jp*(r.tons||1)).toFixed(2):'N/A');
+    if (fa.xtg) ln += ',' + (xp!=null?xp.toFixed(2):'N/A') + ',' + (xp!=null?(xp*(r.tons||1)).toFixed(2):'N/A');
+    ln += ',' + best; rows.push(ln);
+  }
+  var csv = '\uFEFF' + rows.join('\n'), blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  var url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = '冷轧核价_' + new Date().toISOString().slice(0, 10) + '.csv'; a.click();
+  URL.revokeObjectURL(url); showToast('✅ CSV已下载');
+}
+
+// ==========================================
+//  PASTE MODAL
+// ==========================================
+function openPaste() { $('pasteModal').classList.add('show'); $('pasteArea').focus(); parsedRows = []; $('parsePreview').style.display = 'none'; $('btnImport').disabled = true; }
+function closePaste() { $('pasteModal').classList.remove('show'); }
+function parseAndPreview() {
+  var raw = $('pasteArea').value.trim(); if (!raw) { showToast('请粘贴数据'); return; }
+  var lines = raw.split(/\n/).filter(function(l) { return l.trim(); }), results = [];
+  for (var i = 0; i < lines.length; i++) {
+    var ln = lines[i], cs;
+    if (ln.indexOf('\t') !== -1) cs = ln.split('\t');
+    else if (ln.indexOf(';') !== -1) cs = ln.split(';');
+    else if (ln.indexOf(',') !== -1) cs = ln.split(',');
+    else cs = ln.split(/\s{2,}/);
+    if (cs.length <= 1) cs = ln.trim().split(/\s+/);
+    cs = cs.map(function(c) { return c.trim(); }).filter(function(c) { return c; });
+    if (cs.length < 2) continue;
+    var nums = [], texts = [];
+    cs.forEach(function(c) { var n = parseFloat(c); if (!isNaN(n) && String(n).length > 0) nums.push(n); else texts.push(c); });
+    var thickness = 0, width = 0, tons = 1;
+    if (nums.length >= 2) { thickness = nums[0]; width = nums[1]; if (nums.length >= 3) tons = nums[2]; }
+    var gradeText = texts.join(' '), m = matchGrade(gradeText);
+    results.push({ thickness: thickness, width: width, tons: tons, gradeText: gradeText, gradeAg: m.ga, gradeBg: m.gb,
+      am: !!fuzzy(AG_GRD, gradeText, function(g) { return g.n; }), bm: !!fuzzy(BG_GRD, gradeText, function(g) { return g.n; }) });
+  }
+  parsedRows = results; var pv = $('parsePreview'); pv.style.display = '';
+  if (results.length === 0) { pv.innerHTML = '<div style="color:#dc2626;">⚠️ 未能解析</div>'; $('btnImport').disabled = true; return; }
+  var h = '<div style="font-weight:600;">✅ ' + results.length + ' 条：</div><table style="font-size:10px;"><thead><tr><th>#</th><th>厚</th><th>宽</th><th>钢种</th><th>鞍</th><th>包</th><th>吨</th></tr></thead><tbody>';
+  for (var j = 0; j < results.length; j++) { var r = results[j]; h += '<tr><td>' + (j+1) + '</td><td>' + r.thickness + '</td><td>' + r.width + '</td><td>' + esc(r.gradeText||'') + '</td><td style="color:' + (r.am?'#16a34a':'#dc2626') + '">' + (r.am?'✓':'⚠') + '</td><td style="color:' + (r.bm?'#16a34a':'#dc2626') + '">' + (r.bm?'✓':'⚠') + '</td><td>' + r.tons + '</td></tr>'; }
+  h += '</tbody></table>'; pv.innerHTML = h; $('btnImport').disabled = false;
+}
+function importParsed() {
+  if (parsedRows.length === 0) return; var rem = 50 - specRows.length;
+  if (parsedRows.length > rem) { showToast('只能导入' + rem + '条'); return; }
+  for (var i = 0; i < parsedRows.length; i++) { var r = parsedRows[i]; specRows.push({ thickness: r.thickness||1, width: r.width||1200, gradeText: r.gradeText, gradeAg: r.gradeAg, gradeBg: r.gradeBg, tons: r.tons||1 }); }
+  refreshAll(); closePaste(); showToast('✅ 已导入');
+}
+
+// ==========================================
+//  CONFIG
+// ==========================================
+function saveConfig() {
+  var c = { af: activeFactories }, ids = 'agBase,agProductType,agThkTol,agFlatness,agSurface,agRoughness,agPacking,agOil,agCoil,agBoron,bgBase,bgSystem,bgSurface,bgWidthPrec,bgPacking,bgBoron,jlBase,jlBoron,jlPacking,jlSleeve,xtgBase,xtgBoron,xtgWidthType'.split(',');
+  for (var i = 0; i < ids.length; i++) { var e = $(ids[i]); if (e) c[ids[i]] = e.value; }
+  localStorage.setItem('spc_final', JSON.stringify(c));
+}
+function loadConfig() {
+  var raw = localStorage.getItem('spc_final'); if (!raw) return;
+  try {
+    var c = JSON.parse(raw);
+    if (c.af) { activeFactories = c.af; for (var k in activeFactories) { var t = qs('.ft-' + k); if (t) t.classList.toggle('active', activeFactories[k]); var cd = $('sc-' + k); if (!activeFactories[k]) cd.classList.add('off'); } }
+    'agBase,agProductType,agThkTol,agFlatness,agSurface,agRoughness,agPacking,agOil,agCoil,agBoron,bgBase,bgSystem,bgSurface,bgWidthPrec,bgPacking,bgBoron,jlBase,jlBoron,jlPacking,jlSleeve,xtgBase,xtgBoron,xtgWidthType'.split(',').forEach(function(id) { if (c[id] !== undefined) { var e = $(id); if (e) e.value = c[id]; } });
+  } catch (e) {}
+}
+function showToast(msg) { var t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._tid); t._tid = setTimeout(function() { t.classList.remove('show'); }, 2000); }
+
+// ==========================================
+//  INIT
+// ==========================================
+function init() {
+  loadConfig();
+  var m = matchGrade('SPCC');
+  specRows = [
+    { thickness: 0.8, width: 1200, gradeText: 'SPCC', gradeAg: m.ga, gradeBg: m.gb, tons: 10 },
+    { thickness: 1.0, width: 1250, gradeText: 'DC03', gradeAg: 'DS B/DC03/SPCD', gradeBg: 'DC03/SPCD/ST13', tons: 20 },
+    { thickness: 0.5, width: 950, gradeText: 'SPCC', gradeAg: m.ga, gradeBg: m.gb, tons: 5 },
+  ];
+  refreshAll();
+  updateColVis();
+  $('pasteModal').addEventListener('click', function(e) { if (e.target === this) closePaste(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if ((e.ctrlKey || e.metaKey) && e.key === 'n') { e.preventDefault(); addRow(); }
+    if (e.key === 'Delete') { e.preventDefault(); remSel(); }
+  });
+}
+init();
+</script>
+</body>
+</html>
